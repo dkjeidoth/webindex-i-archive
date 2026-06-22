@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>足球竞猜 – 感知比赛，理解游戏</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f9fbfd;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      color: #1f2a3a;
+      line-height: 1.7;
+      padding: 2rem 1.5rem;
+    }
+
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ---- 导航 ---- */
+    .site-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid #e3e9f0;
+      margin-bottom: 2.5rem;
+    }
+
+    .site-nav .brand {
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.3px;
+      color: #1f2a3a;
+    }
+
+    .site-nav .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .site-nav .nav-links a {
+      text-decoration: none;
+      color: #3b4a5f;
+      transition: color 0.2s;
+    }
+
+    .site-nav .nav-links a:hover {
+      color: #0b1f33;
+    }
+
+    /* ---- 英雄区 / 切入句 ---- */
+    .hero {
+      margin-bottom: 3rem;
+    }
+
+    .hero .label-tag {
+      font-size: 0.75rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #6f7d91;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: #0b1f33;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #3b4a5f;
+      max-width: 600px;
+    }
+
+    /* ---- 核心介绍 ---- */
+    .intro-block {
+      margin-bottom: 3.5rem;
+    }
+
+    .intro-block h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      border-left: 4px solid #0b1f33;
+      padding-left: 1rem;
+    }
+
+    .intro-block p {
+      margin-bottom: 1.2rem;
+    }
+
+    .intro-block a {
+      color: #0b1f33;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    }
+
+    .intro-block a:hover {
+      background-color: #e3e9f0;
+    }
+
+    /* ---- 三个场景卡片 ---- */
+    .scenes {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .scene-card {
+      background: #ffffff;
+      padding: 1.8rem 1.4rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.2s;
+    }
+
+    .scene-card:hover {
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .scene-card .scene-num {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #8c9aaf;
+      margin-bottom: 0.4rem;
+    }
+
+    .scene-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.7rem;
+      color: #0b1f33;
+    }
+
+    .scene-card p {
+      font-size: 0.95rem;
+      color: #3b4a5f;
+    }
+
+    /* ---- 常见说明（FAQ风格） ---- */
+    .faq-section {
+      margin-bottom: 3rem;
+    }
+
+    .faq-section h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #0b1f33;
+      padding-left: 1rem;
+    }
+
+    .faq-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid #eaeef4;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-item .faq-q {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: #1f2a3a;
+    }
+
+    .faq-item .faq-a {
+      font-size: 0.95rem;
+      color: #4b5b72;
+    }
+
+    /* ---- 页脚 ---- */
+    .site-footer {
+      font-size: 0.85rem;
+      color: #6f7d91;
+      border-top: 1px solid #e3e9f0;
+      padding-top: 1.8rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .site-footer .footer-links a {
+      color: #3b4a5f;
+      text-decoration: none;
+      margin-right: 1.5rem;
+    }
+
+    .site-footer .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- 响应式 ---- */
+    @media (max-width: 680px) {
+      body {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+
+      .site-nav .nav-links {
+        flex-wrap: wrap;
+        gap: 1.2rem 1.8rem;
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+
+      .scenes {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      .scene-card {
+        padding: 1.4rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 440px) {
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .site-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- 顶部导航 -->
+  <nav class="site-nav">
+    <span class="brand">⚽ 竞猜笔记</span>
+    <div class="nav-links">
+      <a href="#">概览</a>
+      <a href="#">机制</a>
+      <a href="#">场景</a>
+      <a href="#">说明</a>
+    </div>
+  </nav>
+
+  <!-- hero 切入 -->
+  <div class="hero">
+    <div class="label-tag">Matchday · 理解再参与</div>
+    <h1>比赛之外，多一层观察</h1>
+    <p>足球竞猜不只是对赛果的选择——它让你更专注地阅读比赛、分析球队状态、理解战术与数据的关联。欢迎来到清晰、克制的信息站。</p>
+  </div>
+
+  <!-- 核心介绍 -->
+  <div class="intro-block">
+    <h2>足球竞猜是什么</h2>
+    <p>简单来说，<a href="https://play-zuqiu.com">足球竞猜</a>是围绕足球比赛结果展开的预测行为。你基于球队实力、近期表现、主客场因素、伤病情况等信息，对比赛的胜平负、进球数、具体比分等维度给出判断。</p>
+    <p>它本质是一种知识型的兴趣活动——前提是足够了解规则，保持理性，不把它当作投资或捷径。许多球迷通过竞猜加深了对阵型、教练风格、联赛节奏的理解，甚至发现了之前不曾注意的细节。</p>
+    <p>如果你刚开始接触，建议先熟悉基础盘口和常见术语，从少量、低关注的比赛入手，慢慢建立自己的分析框架。</p>
+  </div>
+
+  <!-- 三个场景模块 -->
+  <div class="scenes">
+    <div class="scene-card">
+      <div class="scene-num">场景 01</div>
+      <h3>赛前研究</h3>
+      <p>周末焦点战前，花十分钟对比两队近期数据、伤停名单、历史交锋。不是为了猜对，而是为了看懂教练的变招和场上局势的演变。</p>
+    </div>
+    <div class="scene-card">
+      <div class="scene-num">场景 02</div>
+      <h3>实时跟随</h3>
+      <p>比赛进行时，比分、红黄牌、换人都会改变预期。关注赔率波动和场上实际表现，你会发现竞猜和观赛可以互相补充。</p>
+    </div>
+    <div class="scene-card">
+      <div class="scene-num">场景 03</div>
+      <h3>复盘总结</h3>
+      <p>赛后回顾自己的判断依据：哪里对了，哪里忽略了？长期记录能帮你形成更冷静的决策习惯，而不仅仅是记住输赢。</p>
+    </div>
+  </div>
+
+  <!-- 常见说明（FAQ 摘要） -->
+  <div class="faq-section">
+    <h2>常见说明</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">需要很多本金才能玩吗？</div>
+      <div class="faq-a">完全不需要。足球竞猜的核心是分析和判断，不同平台有不同的最低参与金额，但从学习角度出发，用极少甚至虚拟的方式练习同样有效。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">新手最容易犯什么错？</div>
+      <div class="faq-a">跟着感觉走，或者只看球队名气。强队轮换、杯赛态度、场地条件都会影响结果。建议新人从“胜平负”这类单一选项开始，不要碰复杂串关。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">如何判断信息来源靠谱？</div>
+      <div class="faq-a">关注官方伤停报告、权威数据网站（如WhoScored、Transfermarkt），以及联赛本身的新闻发布。避免相信所谓的“内幕消息”或付费推荐群。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">竞猜和赌博是一回事吗？</div>
+      <div class="faq-a">区别在于动机和方法。理性竞猜是基于信息与逻辑的预测行为，而赌博往往依赖冲动和侥幸。保持好奇、控制金额、把竞猜当作观赛的延伸，才是健康的参与方式。</div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <span>© 了解规则，享受比赛</span>
+    <div class="footer-links">
+      <a href="https://play-zuqiu.com">足球竞猜</a>
+      <a href="#">常见问题</a>
+      <a href="#">理性参与</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
